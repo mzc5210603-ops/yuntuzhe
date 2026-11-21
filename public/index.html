@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>追风的牧者 · 个人联系方式</title>
+<link rel="stylesheet" href="style.css?v=cf18">
+  <meta name="theme-color" content="#070a16">
+</head>
+<body>
+
+<div class="aurora" aria-hidden="true">
+  <span class="blob b1"></span>
+  <span class="blob b2"></span>
+  <span class="blob b3"></span>
+  <span class="grain"></span>
+</div>
+
+<header class="topbar">
+  <div class="logo">
+    <span class="logo-mark"></span>
+    <span class="logo-text">追风的牧者</span>
+  </div>
+  <div class="top-actions">
+    <button class="pill-btn ghost small lang-btn" id="btnLang" type="button" data-i18n-title="langTitle" title="切换语言">中</button>
+    <button class="gear" id="btnAdmin" type="button" data-i18n-title="adminTitle" title="管理登录" aria-label="管理登录" hidden>
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h.01a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h.01a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v.01a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="announce-wrap" id="announceWrap" hidden>
+  <div class="announce">
+    <span class="announce-icon">
+      <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 13v-2z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+    </span>
+    <div class="announce-text" id="announceText"></div>
+  </div>
+</div>
+
+<main class="stage">
+
+  <section class="profile-card" id="profileCard">
+    <div class="ripple-bg" aria-hidden="true"></div>
+    <div class="p-avatar" id="pAvatar" hidden></div>
+    <h1 class="p-name" id="pName"></h1>
+    <p class="p-title" id="pTitle"></p>
+    <div class="p-tags" id="pTags"></div>
+  </section>
+
+  <section class="contact-col">
+    <div class="contact-head">
+      <span class="contact-count" id="contactCount"></span>
+    </div>
+    <ul class="contact-list" id="contactList"></ul>
+  </section>
+
+</main>
+
+<section class="guestbook">
+  <h2 id="gbTitleEl" data-i18n="gbTitle">留言板</h2>
+  <div class="gb-form glass">
+    <div class="gb-form-top">
+      <input type="text" id="gbName" maxlength="20" data-i18n-ph="gbNamePh" placeholder="昵称（可留空）">
+    </div>
+    <textarea id="gbText" maxlength="300" rows="3" data-i18n-ph="gbTextPh" placeholder="给站长留个言吧…"></textarea>
+    <button class="pill-btn gb-submit" id="btnGbSubmit" type="button" data-i18n="gbSubmit">提交留言</button>
+  </div>
+  <p class="gb-note" data-i18n="gbNote">留言提交后仅你自己和站长可见，其他访客无法查看</p>
+  <ul class="gb-list" id="gbList"></ul>
+</section>
+
+<footer class="site-foot">
+  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+  <span id="visitCount"></span>
+</footer>
+
+<!-- 登录弹窗 -->
+<div class="modal-mask" id="loginModal" hidden>
+  <div class="modal glass">
+    <button class="modal-x" data-close="loginModal" type="button" aria-label="关闭">×</button>
+    <h2 class="modal-title" data-i18n="loginTitle">管理员登录</h2>
+    <div class="field">
+      <label for="pwdInput" data-i18n="pwdLabel">访问密码</label>
+      <input type="password" id="pwdInput" data-i18n-ph="pwdPh" placeholder="请输入管理密码" autocomplete="off">
+    </div>
+    <p class="field-err" id="pwdErr" data-i18n="pwdErr" hidden>密码不正确，请重试</p>
+    <button class="pill-btn wide" id="btnLogin" type="button" data-i18n="btnLogin">进入编辑模式</button>
+  </div>
+</div>
+
+<!-- 二维码弹窗 -->
+<div class="modal-mask" id="qrModal" hidden>
+  <div class="modal glass qr-modal">
+    <button class="modal-x" data-close="qrModal" type="button" aria-label="关闭">×</button>
+    <h2 class="modal-title" id="qrTitle">二维码</h2>
+    <div class="qr-stage" id="qrStage"></div>
+    <button class="pill-btn ghost wide" id="btnQrSave" type="button" data-i18n="qrSave">下载 PNG</button>
+  </div>
+</div>
+
+<!-- 编辑抽屉 -->
+<aside class="drawer" id="editorDrawer" hidden>
+  <div class="drawer-head">
+    <h2 data-i18n="editTitle">编辑资料</h2>
+    <div class="drawer-head-btns">
+      <button class="pill-btn small" id="btnExport" type="button" data-i18n="btnExport">导出 data.json</button>
+      <button class="pill-btn small ghost" id="btnLogout" type="button" data-i18n="btnLogout">退出登录</button>
+    </div>
+  </div>
+
+  <div class="drawer-body">
+
+    <div class="avatar-edit">
+      <img id="fAvatarPrev" class="avatar-preview" alt="" hidden>
+      <div class="avatar-edit-btns">
+        <button class="link-btn" id="btnUploadAvatar" type="button" data-i18n="avatarUpload">上传头像</button>
+        <button class="link-btn" id="btnClearAvatar" type="button" data-i18n="avatarClear" hidden>移除头像</button>
+      </div>
+    </div>
+
+    <div class="field-row">
+      <div class="field">
+        <label for="fName" data-i18n="fName">姓名</label>
+        <input type="text" id="fName" maxlength="24">
+      </div>
+      <div class="field">
+        <label for="fTitle" data-i18n="fTitleLb">职位 / 头衔</label>
+        <input type="text" id="fTitle" maxlength="40">
+      </div>
+    </div>
+    <div class="field">
+      <label for="fOrg" data-i18n="fOrg">公司 / 团队</label>
+      <input type="text" id="fOrg" maxlength="40">
+    </div>
+    <div class="field">
+      <label for="fTags"><span data-i18n="fTags">个性标签</span><span class="tip" data-i18n="tagsTip">（用逗号分隔）</span></label>
+      <input type="text" id="fTags" data-i18n-ph="tagsPh" maxlength="60" placeholder="例如：远程协作, 周末咖啡, 快速回复">
+    </div>
+
+    <div class="contact-edit-head">
+      <span data-i18n="contactItems">联系方式条目</span>
+      <button class="pill-btn small" id="btnAddContact" type="button" data-i18n="btnAddContact">+ 添加</button>
+    </div>
+    <div class="contact-edit-list" id="contactEditList"></div>
+
+    <div class="contact-edit-head gb-admin-head">
+      <span data-i18n="annHead">网站公告</span>
+      <span class="tip" data-i18n="annTip">（留空不显示）</span>
+    </div>
+    <div class="gb-lang-row">
+      <button class="pill-btn small gb-lang on" data-lang="zh" type="button">中</button>
+      <button class="pill-btn small ghost gb-lang" data-lang="en" type="button">EN</button>
+      <button class="pill-btn small ghost gb-lang" data-lang="th" type="button">ไทย</button>
+      <span class="tip gb-lang-tip" data-i18n="gbLangTip">编辑语言：公告与留言板文案共用</span>
+    </div>
+    <div class="field">
+      <label data-i18n="annLabel">公告内容</label>
+      <textarea id="fAnn" rows="3" maxlength="200" data-i18n-ph="annPh" placeholder="要向访问者展示的内容…（支持换行）"></textarea>
+    </div>
+
+    <div class="contact-edit-head gb-admin-head">
+      <span data-i18n="gbCustomHead">留言板文案</span>
+    </div>
+    <div class="field">
+      <label data-i18n="fGbTitle">区块标题</label>
+      <input type="text" id="fGbTitle" maxlength="20" placeholder="留言板">
+    </div>
+    <div class="field-row">
+      <div class="field">
+        <label data-i18n="fGbNamePh">昵称框提示</label>
+        <input type="text" id="fGbNamePh" maxlength="30" placeholder="昵称（可留空）">
+      </div>
+      <div class="field">
+        <label data-i18n="fGbSubmit">按钮文字</label>
+        <input type="text" id="fGbSubmit" maxlength="10" placeholder="提交留言">
+      </div>
+    </div>
+    <div class="field">
+      <label data-i18n="fGbTextPh">留言框提示</label>
+      <input type="text" id="fGbTextPh" maxlength="60" placeholder="给站长留个言吧…">
+    </div>
+    <div class="field">
+      <label data-i18n="fGbNote">隐私提示</label>
+      <input type="text" id="fGbNote" maxlength="60" placeholder="留言提交后仅你自己和站长可见，其他访客无法查看">
+    </div>
+
+    <div class="contact-edit-head gb-admin-head">
+      <span data-i18n="gbManage">留言管理</span>
+      <span class="tip" id="gbManageCount"></span>
+    </div>
+    <div class="gb-admin-list" id="gbAdminList"></div>
+
+  </div>
+
+  <div class="drawer-foot">
+    <button class="pill-btn ghost" id="btnCancelEdit" type="button" data-i18n="cancel">取消</button>
+    <button class="pill-btn wide" id="btnSaveEdit" type="button" data-i18n="savePublish">保存并发布</button>
+  </div>
+</aside>
+<div class="drawer-mask" id="drawerMask" hidden></div>
+
+<div class="toast" id="toast" hidden></div>
+
+<script src="lib/qrcode.min.js?v=cf18"></script>
+<script src="app.js?v=cf18"></script>
+</body>
+</html>
